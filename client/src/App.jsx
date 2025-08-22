@@ -16,12 +16,21 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:3001/students')
       .then(res => {
+        // Format tanggal ke day-month-year
+        function formatTanggal(tgl) {
+          const date = new Date(tgl);
+          if (isNaN(date)) return tgl; // fallback jika format tidak valid
+          const day = date.getDate().toString().padStart(2, '0');
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const year = date.getFullYear();
+          return `${day}-${month}-${year}`;
+        }
         // Ubah data dari objek ke array sesuai urutan kolom
         const rows = res.data.map(s => [
           s.kode_siswa,
           s.nama_siswa,
           s.alamat,
-          s.tanggal,
+          formatTanggal(s.tanggal),
           s.jurusan
         ]);
         setTableData(rows);
@@ -75,7 +84,7 @@ function App() {
         </table>
 
         <footer>
-          <p><small>Uji Coba Kompetensi React & Express<br></br>Aditya Suryana</small></p>
+          <p><small>Uji Coba Kompetensi React & Express<br></br><b>Aditya Suryana</b></small></p>
         </footer>
       </div>
     </>

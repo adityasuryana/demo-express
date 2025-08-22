@@ -34,7 +34,7 @@ const AddDataForm = () => {
       } else {
         setMessage('Gagal menambah data');
       }
-    } catch (err) {
+    } catch {
       setMessage('Terjadi kesalahan');
     }
   };
